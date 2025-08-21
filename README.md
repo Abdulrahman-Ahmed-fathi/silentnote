@@ -1,11 +1,11 @@
-# SilentNote - Secure Anonymous Messaging Platform
+# AnonMssg - Secure Anonymous Messaging Platform
 
 ## 🚀 **Live Demo**
 **Access the application at:** `http://localhost:8081` (when running locally)
 
 ## 📋 **Project Overview**
 
-SilentNote is a modern, secure, and privacy-focused anonymous messaging platform built with React, TypeScript, and Supabase. It enables users to send and receive anonymous messages while maintaining complete privacy and security through advanced encryption, Row Level Security (RLS), and comprehensive admin oversight.
+AnonMssg is a modern, secure, and privacy-focused anonymous messaging platform built with React, TypeScript, and Supabase. It enables users to send and receive anonymous messages while maintaining complete privacy and security through advanced encryption, Row Level Security (RLS), and comprehensive admin oversight.
 
 ## 🔒 **Security Review & Implementation**
 
@@ -292,7 +292,7 @@ For support and questions:
 
 ## 🔐 **Security Summary**
 
-SilentNote implements a comprehensive security model that balances user privacy with administrative oversight:
+AnonMssg implements a comprehensive security model that balances user privacy with administrative oversight:
 
 - **User Privacy**: Complete sender anonymity for message recipients
 - **Admin Security**: Full sender visibility for security and moderation

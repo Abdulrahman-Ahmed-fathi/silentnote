@@ -105,10 +105,10 @@ export default function Profile() {
             {/* Logo and Brand */}
             <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity animate-slide-in-left">
               <div className="relative">
-                <img src="/logo.svg" alt="Tell Me Logo" className="h-6 w-6" />
+                <img src="/logo.svg" alt="AnonMssg Logo" className="h-6 w-6" />
               </div>
               <span className="text-base sm:text-lg font-semibold bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent animate-gradient">
-                Tell Me
+                AnonMssg
               </span>
             </Link>
 

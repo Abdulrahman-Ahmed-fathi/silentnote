@@ -44,10 +44,10 @@ export default function Landing() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 animate-slide-in-left">
               <div className="relative">
-                <img src="/logo.svg" alt="Tell Me Logo" className="h-8 w-8" />
+                <img src="/logo.svg" alt="AnonMssg Logo" className="h-8 w-8" />
               </div>
               <h1 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent animate-gradient">
-                Tell Me
+                AnonMssg
               </h1>
             </div>
             
@@ -168,7 +168,7 @@ export default function Landing() {
       <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
         <div className="text-center mb-12 sm:mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 px-4">
-            Why choose <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">Tell Me</span>?
+            Why choose <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">AnonMssg</span>?
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Built with privacy, security, and user experience in mind.
@@ -222,7 +222,7 @@ export default function Landing() {
               Ready to start your anonymous journey?
             </h2>
             <p className="text-base sm:text-lg md:text-xl opacity-90 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
-              Join thousands of users who trust Tell Me for honest, secure communication.
+              Join thousands of users who trust AnonMssg for honest, secure communication.
             </p>
             <Button size="lg" variant="secondary" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover:scale-105 transition-transform duration-200 shadow-xl hover:shadow-2xl">
               <Link to="/signup">Create Your Profile</Link>

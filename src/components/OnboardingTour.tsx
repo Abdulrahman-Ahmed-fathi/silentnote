@@ -29,7 +29,7 @@ interface OnboardingStep {
 const onboardingSteps: OnboardingStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to Tell Me!',
+            title: 'Welcome to AnonMssg!',
     description: 'Your secure space for anonymous messaging. Let\'s get you started with a quick tour.',
     icon: <MessageCircle className="h-8 w-8 text-primary" />
   },

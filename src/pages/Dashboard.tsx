@@ -278,7 +278,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-3">
               <Sparkles className="h-5 w-5 text-blue-600" />
               <div>
-                <h3 className="font-medium text-blue-900">Welcome to Tell Me!</h3>
+                <h3 className="font-medium text-blue-900">Welcome to AnonMssg!</h3>
                 <p className="text-sm text-blue-700">Let's get you started with a quick tour of your dashboard.</p>
               </div>
               <Button size="sm" onClick={() => setShowOnboarding(true)} className="ml-auto">
