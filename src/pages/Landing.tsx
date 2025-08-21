@@ -157,14 +157,9 @@ export default function Landing() {
                 </Button>
               </>
             ) : (
-              <>
-                <Button size="lg" variant="premium" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover:scale-105 transition-transform duration-200 shadow-xl hover:shadow-2xl">
-                  <Link to="/signup">Get Started Free</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover:scale-105 transition-transform duration-200 border-2">
-                  <Link to="/u/demo">Explore Demo Profile</Link>
-                </Button>
-              </>
+              <Button size="lg" variant="premium" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover:scale-105 transition-transform duration-200 shadow-xl hover:shadow-2xl">
+                <Link to="/signup">Get Started Free</Link>
+              </Button>
             )}
           </div>
         </div>
