@@ -54,10 +54,10 @@ export function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <div className="relative">
-                <img src="/logo.svg" alt="SilentNote Logo" className="h-6 w-6" />
+                <img src="/logo.svg" alt="Tell Me Logo" className="h-8 w-8" />
               </div>
               <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                SilentNote
+                Tell Me
               </h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4 max-w-md">
@@ -127,7 +127,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <div className="text-sm text-muted-foreground">
-              © {currentYear} SilentNote. All rights reserved.
+              © {currentYear} Tell Me. All rights reserved.
             </div>
 
             {/* Social Links */}

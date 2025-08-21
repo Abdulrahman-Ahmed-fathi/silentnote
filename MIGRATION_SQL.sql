@@ -38,3 +38,12 @@ FROM information_schema.columns
 WHERE table_name = 'messages' 
 AND column_name IN ('sender_type', 'sender_metadata')
 ORDER BY column_name;
+
+-- Add contact fields to profiles
+ALTER TABLE public.profiles 
+ADD COLUMN IF NOT EXISTS email TEXT,
+ADD COLUMN IF NOT EXISTS phone TEXT;
+
+-- Optional: basic indexes
+CREATE INDEX IF NOT EXISTS idx_profiles_email ON public.profiles(email);
+CREATE INDEX IF NOT EXISTS idx_profiles_phone ON public.profiles(phone);

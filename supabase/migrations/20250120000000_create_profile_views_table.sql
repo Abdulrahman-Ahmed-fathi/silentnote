@@ -38,3 +38,4 @@ CREATE POLICY "Only admins can delete profile views" ON profile_views
     )
   );
 
+

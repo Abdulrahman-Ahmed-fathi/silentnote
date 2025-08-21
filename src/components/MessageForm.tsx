@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, MessageCircle, Shield } from 'lucide-react';
+import { Send, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -16,7 +16,7 @@ export const MessageForm = ({ receiverId, receiverUsername }: MessageFormProps) 
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   
-  const maxLength = 300;
+  const maxLength = 500;
   const remainingChars = maxLength - message.length;
 
   const captureSenderMetadata = async () => {
@@ -29,14 +29,12 @@ export const MessageForm = ({ receiverId, receiverUsername }: MessageFormProps) 
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
-    // Fetch real IP address using a public IP service
     try {
       const response = await fetch('https://api.ipify.org?format=json');
       if (response.ok) {
         const data = await response.json();
         metadata.ip_address = data.ip;
       } else {
-        // Fallback to alternative IP service
         const fallbackResponse = await fetch('https://api64.ipify.org?format=json');
         if (fallbackResponse.ok) {
           const fallbackData = await fallbackResponse.json();
@@ -70,25 +68,20 @@ export const MessageForm = ({ receiverId, receiverUsername }: MessageFormProps) 
     try {
       // Get current user session
       const { data: { session } } = await supabase.auth.getSession();
-      
-      // Capture comprehensive sender metadata
+
+      // Capture sender metadata for admin visibility
       const senderMetadata = await captureSenderMetadata();
-      
-      // Prepare message data
+
+      // Prepare message payload
       const messageData: any = {
         content: message.trim(),
         receiver_id: receiverId,
-        sender_metadata: senderMetadata, // Store all metadata for admin access
+        sender_metadata: senderMetadata,
+        sender_type: session?.user ? 'registered_user' : 'anonymous_user',
       };
 
-      // Add sender info based on authentication status
       if (session?.user) {
         messageData.sender_user_id = session.user.id;
-        messageData.sender_type = 'registered_user';
-      } else {
-        messageData.sender_type = 'anonymous_user';
-        // For anonymous users, we don't store sender_user_id
-        // But we store comprehensive metadata for admin monitoring
       }
 
       const { error } = await supabase
@@ -97,10 +90,21 @@ export const MessageForm = ({ receiverId, receiverUsername }: MessageFormProps) 
 
       if (error) throw error;
 
+      // Success feedback
       toast({
         title: "Message sent!",
         description: `Your anonymous message has been sent to ${receiverUsername}.`,
+        duration: 8000,
       });
+
+      // For anonymous users, show login reminder
+      if (!session?.user) {
+        toast({
+          title: "Login Required",
+          description: "Thanks For Sending Your Message❤.Please log in to the site to confirm sending the message.",
+          duration: 8000,
+        });
+      }
 
       setMessage('');
     } catch (error: any) {

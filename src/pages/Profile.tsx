@@ -105,10 +105,10 @@ export default function Profile() {
             {/* Logo and Brand */}
             <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity animate-slide-in-left">
               <div className="relative">
-                <img src="/logo.svg" alt="SilentNote Logo" className="h-5 w-5 sm:h-6 sm:w-6" />
+                <img src="/logo.svg" alt="Tell Me Logo" className="h-6 w-6" />
               </div>
               <span className="text-base sm:text-lg font-semibold bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent animate-gradient">
-                SilentNote
+                Tell Me
               </span>
             </Link>
 
@@ -129,7 +129,7 @@ export default function Profile() {
         {/* Profile Header */}
         <Card className="p-6 sm:p-8 mb-6 sm:mb-8 text-center bg-gradient-to-br from-white to-gray-50 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in-up group hover:scale-105 border-0" style={{ animationDelay: '0.2s' }}>
           <div className="relative mb-4 sm:mb-6">
-            <Avatar className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
+            <Avatar className="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4 ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
               <AvatarImage src={profile.avatar_url || undefined} />
               <AvatarFallback className="text-xl sm:text-2xl bg-gradient-to-r from-primary to-purple-500 text-primary-foreground">
                 {profile.display_name?.[0]?.toUpperCase() || profile.username[0]?.toUpperCase()}

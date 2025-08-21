@@ -2,11 +2,13 @@
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (user_id, username, display_name)
+  INSERT INTO public.profiles (user_id, username, display_name, email, phone)
   VALUES (
     NEW.id, 
     COALESCE(NEW.raw_user_meta_data->>'username', 'user_' || substr(NEW.id::text, 1, 8)),
-    NEW.raw_user_meta_data->>'username'
+    NEW.raw_user_meta_data->>'username',
+    NEW.email,
+    NULLIF(NEW.raw_user_meta_data->>'phone', '')
   );
   RETURN NEW;
 END;

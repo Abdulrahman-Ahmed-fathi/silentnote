@@ -22,7 +22,8 @@ import {
   Globe, 
   Calendar,
   MessageCircle,
-  Filter
+  Filter,
+  Users as UsersIcon
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -57,6 +58,9 @@ export default function Admin() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showUsers, setShowUsers] = useState(false);
+  const [users, setUsers] = useState<Array<{ user_id: string; username: string; email: string | null; phone: string | null }>>([]);
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
 
   useEffect(() => {
     // Wait for auth to finish loading before checking user state
@@ -89,6 +93,7 @@ export default function Admin() {
       if (data?.role === 'admin') {
         setIsAdmin(true);
         fetchMessages();
+        fetchUsers();
       } else {
         toast({
           variant: "destructive",
@@ -102,6 +107,65 @@ export default function Admin() {
       navigate('/dashboard');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('user_id, username, email, phone');
+
+      if (error) throw error;
+      setUsers(data || []);
+    } catch (error: any) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  const handleDeleteUser = async (targetUserId: string) => {
+    if (!window.confirm('Are you sure you want to delete this user and all related data? This action cannot be undone.')) {
+      return;
+    }
+
+    setDeletingUserId(targetUserId);
+    try {
+      // 1) Delete messages either sent by or received by this user
+      const { error: msgError } = await supabase
+        .from('messages')
+        .delete()
+        .or(`receiver_id.eq.${targetUserId},sender_user_id.eq.${targetUserId}`);
+      if (msgError) throw msgError;
+
+      // 2) Delete user roles
+      const { error: rolesError } = await supabase
+        .from('user_roles')
+        .delete()
+        .eq('user_id', targetUserId);
+      if (rolesError) throw rolesError;
+
+      // 3) Delete profile
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('user_id', targetUserId);
+      if (profileError) throw profileError;
+
+      // Note: Deleting auth user requires service role; do that via server if needed
+
+      setUsers(prev => prev.filter(u => u.user_id !== targetUserId));
+      toast({
+        title: 'User deleted',
+        description: 'The user and their related data were removed.',
+      });
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Failed to delete user',
+        description: error.message || 'An error occurred while deleting the user.',
+      });
+    } finally {
+      setDeletingUserId(null);
     }
   };
 
@@ -296,6 +360,10 @@ export default function Admin() {
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
+            <Button variant="default" className="sm:w-auto text-sm sm:text-base" size="sm" onClick={() => setShowUsers(true)}>
+              <UsersIcon className="h-4 w-4 mr-2" />
+              Users
+            </Button>
           </div>
         </Card>
 
@@ -315,8 +383,8 @@ export default function Admin() {
               <TableBody>
                 {filteredMessages.map((message) => (
                   <TableRow key={message.id}>
-                    <TableCell className="max-w-[150px] sm:max-w-xs">
-                      <p className="truncate text-xs sm:text-sm">{message.content}</p>
+                    <TableCell className="max-w-[300px] sm:max-w-xl">
+                      <p className="text-xs sm:text-sm whitespace-pre-wrap break-words">{message.content}</p>
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className="text-xs">@{message.receiver_username}</Badge>
@@ -392,6 +460,55 @@ export default function Admin() {
           )}
         </Card>
       </div>
+
+      {showUsers && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Registered Users</h3>
+              <Button variant="ghost" size="sm" onClick={() => setShowUsers(false)}>Close</Button>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left">
+                    <th className="py-2 pr-4">Name</th>
+                    <th className="py-2 pr-4">Email</th>
+                    <th className="py-2 pr-4">Phone</th>
+                    <th className="py-2 pr-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map(u => (
+                    <tr key={u.user_id} className="border-t">
+                      <td className="py-2 pr-4">@{u.username}</td>
+                      <td className="py-2 pr-4">{u.email || '-'}</td>
+                      <td className="py-2 pr-4">{u.phone || '-'}</td>
+                      <td className="py-2 pr-0 text-right">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-red-600 border-red-200 hover:bg-red-50"
+                          onClick={() => handleDeleteUser(u.user_id)}
+                          disabled={deletingUserId === u.user_id}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          {deletingUserId === u.user_id ? 'Deleting...' : 'Delete'}
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                  {users.length === 0 && (
+                    <tr>
+                      <td className="py-4 text-center text-muted-foreground" colSpan={3}>No users found.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

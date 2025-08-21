@@ -13,6 +13,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
@@ -97,7 +98,7 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const { error } = await signUp(email, password, username);
+      const { error } = await signUp(email, password, username, phone);
       
       if (error) {
         toast({
@@ -108,7 +109,7 @@ export default function Signup() {
       } else {
         toast({
           title: "Account created!",
-          description: "Please check your email to verify your account.",
+          description: "Welcome to Tell Me! You can now log in.",
         });
         navigate('/login');
       }
@@ -143,9 +144,9 @@ export default function Signup() {
         {/* Logo */}
         <div className="text-center">
           <Link to="/" className="inline-flex items-center gap-2 mb-6 sm:mb-8">
-            <img src="/logo.svg" alt="SilentNote Logo" className="h-6 w-6 sm:h-8 sm:w-8" />
+            <img src="/logo.svg" alt="Tell Me Logo" className="h-8 w-8" />
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              SilentNote
+              Tell Me
             </h1>
           </Link>
         </div>
@@ -170,6 +171,19 @@ export default function Signup() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
+                  disabled={isLoading}
+                  className="text-sm sm:text-base"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-sm sm:text-base">Mobile Phone</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="e.g., +1 555 555 5555"
                   disabled={isLoading}
                   className="text-sm sm:text-base"
                 />

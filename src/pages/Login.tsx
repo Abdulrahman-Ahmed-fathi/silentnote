@@ -137,9 +137,9 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center">
           <Link to="/" className="inline-flex items-center gap-2 mb-6 sm:mb-8">
-            <img src="/logo.svg" alt="SilentNote Logo" className="h-6 w-6 sm:h-8 sm:w-8" />
+            <img src="/logo.svg" alt="Tell Me Logo" className="h-8 w-8" />
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              SilentNote
+              Tell Me
             </h1>
           </Link>
         </div>

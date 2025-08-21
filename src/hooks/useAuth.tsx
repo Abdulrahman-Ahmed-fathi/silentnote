@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, username: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, username: string, phone?: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   updateEmail: (newEmail: string) => Promise<{ error: any }>;
@@ -52,19 +52,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, username: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
+  const signUp = async (email: string, password: string, username: string, phone?: string) => {
+    // Disable email confirmation: sign in immediately after signup
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: redirectUrl,
+        emailRedirectTo: undefined,
         data: {
-          username: username
-        }
-      }
+          username: username,
+          phone: phone || null,
+        },
+      },
     });
+
+    // If signup succeeds and session not returned (depending on project settings), sign in directly
+    if (!error && !data.session) {
+      await supabase.auth.signInWithPassword({ email, password });
+    }
+
     return { error };
   };
 

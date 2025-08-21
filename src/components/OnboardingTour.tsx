@@ -29,7 +29,7 @@ interface OnboardingStep {
 const onboardingSteps: OnboardingStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to SilentNote!',
+    title: 'Welcome to Tell Me!',
     description: 'Your secure space for anonymous messaging. Let\'s get you started with a quick tour.',
     icon: <MessageCircle className="h-8 w-8 text-primary" />
   },
@@ -179,4 +179,5 @@ export function OnboardingTour({ isOpen, onClose, onComplete }: OnboardingTourPr
     </div>
   );
 }
+
 
