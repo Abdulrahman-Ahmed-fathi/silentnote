@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="#f8fafc" stroke="#cbd5e0" stroke-width="1.5"/>
+  
+  <!-- Message bubble -->
+  <path d="M12 16C12 13.7909 13.7909 12 16 12H28C30.2091 12 32 13.7909 32 16V24C32 26.2091 30.2091 28 28 28H20L16 32V16Z" fill="#667eea" stroke="#5a67d8" stroke-width="1.5"/>
+  
+  <!-- Anonymous mask -->
+  <path d="M14 18C14 16.8954 14.8954 16 16 16H28C29.1046 16 30 16.8954 30 18V22C30 23.1046 29.1046 24 28 24H16C14.8954 24 14 23.1046 14 22V18Z" fill="#2d3748" opacity="0.9"/>
+  
+  <!-- Eye slits -->
+  <rect x="17" y="19" width="2" height="1" rx="0.5" fill="#ffffff"/>
+  <rect x="25" y="19" width="2" height="1" rx="0.5" fill="#ffffff"/>
+  
+  <!-- Silent symbol -->
+  <path d="M20 26L28 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Decorative dots -->
+  <circle cx="36" cy="12" r="1.5" fill="#667eea" opacity="0.6"/>
+  <circle cx="12" cy="36" r="1" fill="#667eea" opacity="0.4"/>
+</svg>
