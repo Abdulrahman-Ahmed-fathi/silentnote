@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Footer } from '@/components/Footer';
 import { Shield, Users, Zap, Heart, Lock, Menu, X, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -231,9 +230,6 @@ export default function Landing() {
           </div>
         </Card>
       </section>
-
-      {/* Enhanced Footer */}
-      <Footer />
     </div>
   );
 }

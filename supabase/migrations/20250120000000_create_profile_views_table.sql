@@ -37,3 +37,4 @@ CREATE POLICY "Only admins can delete profile views" ON profile_views
       WHERE user_id = auth.uid() AND role = 'admin'
     )
   );
+

@@ -179,3 +179,4 @@ export function OnboardingTour({ isOpen, onClose, onComplete }: OnboardingTourPr
     </div>
   );
 }
+

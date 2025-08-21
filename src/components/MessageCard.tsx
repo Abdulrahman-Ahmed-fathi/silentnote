@@ -1,14 +1,8 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Heart, Archive, Trash2, MoreHorizontal } from 'lucide-react';
+import { Heart, Archive, Trash2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 
 interface MessageCardProps {
   id: string;
@@ -44,27 +38,33 @@ export const MessageCard = ({
         <div className="flex-1 pr-2 sm:pr-4">
           <p className="text-sm sm:text-base text-foreground leading-relaxed break-words">{content}</p>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm" className="opacity-60 hover:opacity-100 flex-shrink-0">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem onClick={() => onToggleFavorite(id)} className="text-sm">
-              <Heart className={`h-4 w-4 mr-2 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
-              {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onToggleArchive(id)} className="text-sm">
-              <Archive className="h-4 w-4 mr-2" />
-              {isArchived ? 'Unarchive' : 'Archive'}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete} className="text-destructive text-sm">
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => onToggleFavorite(id)}
+            className="opacity-60 hover:opacity-100"
+          >
+            <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => onToggleArchive(id)}
+            className="opacity-60 hover:opacity-100"
+          >
+            <Archive className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={handleDelete}
+            className="opacity-60 hover:opacity-100 text-destructive"
+            disabled={isDeleting}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       
       <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
