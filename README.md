@@ -1,7 +1,8 @@
 # AnonMssg - Secure Anonymous Messaging Platform
 
-## 🚀 **Live Demo**
-**Access the application at:** [)](https://anonmssg.netlify.app/)
+## 🚀 Live Demo
+- **Deployed:** [https://anonmssg.netlify.app](https://anonmssg.netlify.app)
+
 
 ## 📋 **Project Overview**
 
