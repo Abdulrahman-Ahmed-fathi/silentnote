@@ -1,7 +1,7 @@
 # AnonMssg - Secure Anonymous Messaging Platform
 
 ## 🚀 **Live Demo**
-**Access the application at:** [`http://localhost:8081` (when running locally)](https://anonmssg.netlify.app/)
+**Access the application at:** [)](https://anonmssg.netlify.app/)
 
 ## 📋 **Project Overview**
 
